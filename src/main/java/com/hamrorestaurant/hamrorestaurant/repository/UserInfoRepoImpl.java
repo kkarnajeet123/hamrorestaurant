@@ -44,4 +44,9 @@ public class UserInfoRepoImpl extends AbstractAppDBRepository implements UserInf
             throw e;
         }
     }
+
+    @Override
+    public List<UserInfoEntity> findByFirstName(String name) {
+        return null;
+    }
 }

@@ -1,7 +1,7 @@
 package com.hamrorestaurant.hamrorestaurant.controller;
 
 import com.hamrorestaurant.hamrorestaurant.model.restCall.EmployeeInfo;
-import com.hamrorestaurant.hamrorestaurant.service.EmployeeService;
+import com.hamrorestaurant.hamrorestaurant.service.EmployeeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class EmployeeInfoController {
 
     @Autowired
-    private EmployeeService service;
+    private EmployeeServiceImpl service;
 
     @GetMapping("/employee")
     public ResponseEntity<EmployeeInfo> employeeList(){

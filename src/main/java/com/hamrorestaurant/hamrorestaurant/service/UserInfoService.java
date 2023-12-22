@@ -2,18 +2,72 @@ package com.hamrorestaurant.hamrorestaurant.service;
 
 import com.hamrorestaurant.hamrorestaurant.entity.UserInfoEntity;
 import com.hamrorestaurant.hamrorestaurant.model.userInfo.UserInfo;
-import com.hamrorestaurant.hamrorestaurant.web.rest.UserInfoResponse;
+import com.hamrorestaurant.hamrorestaurant.repository.AddressRepo;
+import com.hamrorestaurant.hamrorestaurant.repository.UserInfoRepository;
+import org.apache.catalina.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
-public interface UserInfoService {
+@Service
+public class UserInfoService {
 
-    UserInfoResponse getAlluserInfo();
-    UserInfoResponse addUserInfo(UserInfoEntity userInfo);
-    UserInfoResponse deleteUserById(String userId);
-    UserInfoResponse deleteUserByName(String userName);
-    UserInfoResponse updateUserById(String userId, UserInfoEntity userInfo);
-    UserInfoResponse updateUserByName(String userName);
-    UserInfoResponse getUserById(String userId);
-    UserInfoResponse getUserByName(String userName);
+    @Autowired
+    private UserInfoRepository repo;
+
+    @Autowired
+    private AddressRepo addressRepo;
+
+    public List<UserInfoEntity> userInfoList(){
+
+//        UserInfo userInfo = new UserInfo();
+//        userInfo.setUserId("1");
+//        userInfo.setFirstName("Jack");
+//        userInfo.setLastName("Jill");
+//        StringBuilder stringBuilder = new StringBuilder();
+//        userInfo.setEmailAddress("jj@gmail.com");
+//        userInfo.setPhoneNumber(2134435090L);
+//        //userInfo.getEmailAddress().toLowerCase();
+//        List<UserInfo> userInfoList = Arrays.asList(userInfo);
+
+        return repo.findAll();
+
+    }
+
+    public String addUserInfo(UserInfoEntity userInfo){
+
+//        UserInfo info = new UserInfo();
+//        info.setFirstName(userInfo.getFirstName());
+//        info.setLastName(userInfo.getLastName());
+//        info.setPhoneNumber(userInfo.getPhoneNumber());
+//        info.setEmailAddress(userInfo.getEmailAddress());
+//        info.setAddress(userInfo.getAddress());
+        repo.save(userInfo);
+        //repo.saveAndFlush(userInfo);
+        //addressRepo.save(userInfo.getUseraddress());
+        return "Record has been Saved!!!";
+    }
+
+    public UserInfoEntity updateUserInfo(String userId, UserInfoEntity userInfo){
+
+    UserInfoEntity user = repo.findById(Integer.parseInt(userId)).get();
+    if(!ObjectUtils.isEmpty(user)){
+        user.setEmailAddress(userInfo.getEmailAddress());
+        user.setLastName(userInfo.getLastName());
+        user.setFirstName(userInfo.getFirstName());
+        user.setPhoneNumber(userInfo.getPhoneNumber());
+        user.setUseraddress(userInfo.getUseraddress());
+    }
+       repo.save(user);
+        return user;
+    }
+
+    public UserInfoEntity getUserInfoById(int userId) {
+        UserInfoEntity userInfo= repo.findById(userId).get();
+    return userInfo;
+    }
 }

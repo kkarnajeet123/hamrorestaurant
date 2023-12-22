@@ -34,7 +34,7 @@ public class UserInfoService {
 //        //userInfo.getEmailAddress().toLowerCase();
 //        List<UserInfo> userInfoList = Arrays.asList(userInfo);
 
-        return repo.findAll();
+        return repo.findAllUsers();
 
     }
 
@@ -46,7 +46,7 @@ public class UserInfoService {
 //        info.setPhoneNumber(userInfo.getPhoneNumber());
 //        info.setEmailAddress(userInfo.getEmailAddress());
 //        info.setAddress(userInfo.getAddress());
-        repo.save(userInfo);
+        repo.saveOrUpdate(userInfo);
         //repo.saveAndFlush(userInfo);
         //addressRepo.save(userInfo.getUseraddress());
         return "Record has been Saved!!!";
@@ -54,20 +54,20 @@ public class UserInfoService {
 
     public UserInfoEntity updateUserInfo(String userId, UserInfoEntity userInfo){
 
-    UserInfoEntity user = repo.findById(Integer.parseInt(userId)).get();
+    UserInfoEntity user = repo.findUserById(Integer.parseInt(userId));
     if(!ObjectUtils.isEmpty(user)){
         user.setEmailAddress(userInfo.getEmailAddress());
         user.setLastName(userInfo.getLastName());
         user.setFirstName(userInfo.getFirstName());
         user.setPhoneNumber(userInfo.getPhoneNumber());
-        user.setUseraddress(userInfo.getUseraddress());
+        user.setUserAddress(userInfo.getUserAddress());
     }
-       repo.save(user);
+       repo.saveOrUpdate(user);
         return user;
     }
 
     public UserInfoEntity getUserInfoById(int userId) {
-        UserInfoEntity userInfo= repo.findById(userId).get();
+        UserInfoEntity userInfo= repo.findUserById(userId);
     return userInfo;
     }
 }

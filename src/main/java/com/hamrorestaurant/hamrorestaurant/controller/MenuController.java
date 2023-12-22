@@ -1,7 +1,7 @@
 package com.hamrorestaurant.hamrorestaurant.controller;
 
 import com.hamrorestaurant.hamrorestaurant.model.drinks.Drinks;
-import com.hamrorestaurant.hamrorestaurant.service.MenuListService;
+import com.hamrorestaurant.hamrorestaurant.service.MenuListServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +15,7 @@ import java.util.List;
 public class MenuController {
 
     @Autowired
-    private MenuListService menuListService;
+    private MenuListServiceImpl menuListService;
 
     @GetMapping("/menu/items")
     public List<String> getMenuItems(){

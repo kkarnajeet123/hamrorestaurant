@@ -1,6 +1,8 @@
 package com.hamrorestaurant.hamrorestaurant.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -8,17 +10,18 @@ import javax.persistence.*;
 @Table(name = "UserAddress")
 public class UserAddress {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @JsonIgnore
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "address_Id", nullable = false)
     private long addId;
     private String streetAdderss;
     private String city;
     private String state;
     private String zipCode;
     private String Country;
-    @ManyToOne (fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "user_Id")
-    private UserInfoEntity userInfo;
+//    @OnDelete(action = OnDeleteAction.CASCADE)
+    UserInfoEntity userInfo;
 
     public String getStreetAdderss() {
         return streetAdderss;
@@ -68,15 +71,15 @@ public class UserAddress {
         this.userInfo = userInfo;
     }
 
-    public UserAddress(String streetAdderss, String city, String state, String zipCode, String country) {
-        this.streetAdderss = streetAdderss;
-        this.city = city;
-        this.state = state;
-        this.zipCode = zipCode;
-        Country = country;
-    }
-
-    public UserAddress(){
-
-    }
+//    public UserAddress(String streetAdderss, String city, String state, String zipCode, String country) {
+//        this.streetAdderss = streetAdderss;
+//        this.city = city;
+//        this.state = state;
+//        this.zipCode = zipCode;
+//        Country = country;
+//    }
+//
+//    public UserAddress(){
+//
+//    }
 }

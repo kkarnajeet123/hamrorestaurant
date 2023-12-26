@@ -1,6 +1,7 @@
-package com.hamrorestaurant.hamrorestaurant.repository;
+package com.hamrorestaurant.hamrorestaurant.repository.hibernate;
 
 import com.hamrorestaurant.hamrorestaurant.entity.UserInfoEntity;
+import com.hamrorestaurant.hamrorestaurant.repository.AbstractAppDBRepository;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.criterion.Restrictions;
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 @Repository
-public class UserInfoRepoImpl extends AbstractAppDBRepository implements UserInfoRepository{
+public class UserInfoRepoImpl extends AbstractAppDBRepository implements UserInfoRepository {
 
     private static final Logger logger = LoggerFactory.getLogger(UserInfoRepoImpl.class);
 

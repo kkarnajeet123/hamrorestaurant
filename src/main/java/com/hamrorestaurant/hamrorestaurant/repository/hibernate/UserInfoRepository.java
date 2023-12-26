@@ -1,4 +1,4 @@
-package com.hamrorestaurant.hamrorestaurant.repository;
+package com.hamrorestaurant.hamrorestaurant.repository.hibernate;
 
 import com.hamrorestaurant.hamrorestaurant.entity.UserInfoEntity;
 import org.springframework.data.jpa.repository.JpaRepository;

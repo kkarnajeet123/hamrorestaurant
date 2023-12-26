@@ -1,16 +1,18 @@
 package com.hamrorestaurant.hamrorestaurant.web.rest;
 
+import com.hamrorestaurant.hamrorestaurant.entity.UserInfoEntity;
+
 import java.util.List;
-public class UserInfoResponse {
-    private Object Data;
+public class UserResponse {
+    private List<UserInfoEntity> Data;
     private List<Object> error;
     private List<Object> warning;
 
-    public Object getData() {
+    public List<UserInfoEntity> getData() {
         return Data;
     }
 
-    public void setData(Object data) {
+    public void setData(List<UserInfoEntity> data) {
         Data = data;
     }
 

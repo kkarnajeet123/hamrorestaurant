@@ -2,14 +2,17 @@ package com.hamrorestaurant.hamrorestaurant.service;
 
 import com.hamrorestaurant.hamrorestaurant.entity.UserInfoEntity;
 import com.hamrorestaurant.hamrorestaurant.web.rest.UserInfoResponse;
+import com.hamrorestaurant.hamrorestaurant.web.rest.UserResponse;
+
+import java.util.List;
 
 public interface UserInformationService {
-    UserInfoResponse getAlluserInfo();
+    UserInfoResponse getAllUserInfo();
     UserInfoResponse addUserInfo(UserInfoEntity userInfo);
     UserInfoResponse deleteUserById(String userId);
-    UserInfoResponse deleteUserByName(String userName);
+    UserInfoResponse deleteUserByEmailAddress(String emailAddress);
     UserInfoResponse updateUserById(String userId, UserInfoEntity userInfo);
-    UserInfoResponse updateUserByName(String userName);
+    UserInfoResponse updateUserByEmailAddress(String emailAddress, UserInfoEntity userInfo);
     UserInfoResponse getUserById(String userId);
-    UserInfoResponse getUserByName(String userName);
+    UserInfoResponse getUserByEmailAddress(String emailAddress);
 }

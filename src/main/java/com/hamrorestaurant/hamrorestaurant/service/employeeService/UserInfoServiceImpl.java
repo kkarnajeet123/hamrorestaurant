@@ -1,12 +1,9 @@
-package com.hamrorestaurant.hamrorestaurant.service;
+package com.hamrorestaurant.hamrorestaurant.service.employeeService;
 
-import com.hamrorestaurant.hamrorestaurant.entity.UserAddress;
 import com.hamrorestaurant.hamrorestaurant.entity.UserInfoEntity;
 import com.hamrorestaurant.hamrorestaurant.repository.AddressRepo;
 import com.hamrorestaurant.hamrorestaurant.repository.UserInfoRepo;
-import com.hamrorestaurant.hamrorestaurant.web.rest.ErrorResponse;
 import com.hamrorestaurant.hamrorestaurant.web.rest.UserInfoResponse;
-import com.hamrorestaurant.hamrorestaurant.web.rest.UserResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +12,6 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Service

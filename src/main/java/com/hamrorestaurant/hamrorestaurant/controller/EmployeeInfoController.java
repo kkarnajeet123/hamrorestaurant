@@ -1,7 +1,7 @@
 package com.hamrorestaurant.hamrorestaurant.controller;
 
 import com.hamrorestaurant.hamrorestaurant.model.restCall.EmployeeInfo;
-import com.hamrorestaurant.hamrorestaurant.service.EmployeeServiceImpl;
+import com.hamrorestaurant.hamrorestaurant.service.employeeService.EmployeeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

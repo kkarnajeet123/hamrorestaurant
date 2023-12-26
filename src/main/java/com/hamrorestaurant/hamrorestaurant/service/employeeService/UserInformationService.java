@@ -1,4 +1,4 @@
-package com.hamrorestaurant.hamrorestaurant.service;
+package com.hamrorestaurant.hamrorestaurant.service.employeeService;
 
 import com.hamrorestaurant.hamrorestaurant.entity.UserInfoEntity;
 import com.hamrorestaurant.hamrorestaurant.web.rest.UserInfoResponse;

@@ -25,7 +25,6 @@ public class UserInfoEntity {
     private String phoneNumber;
     private String emailAddress;
     @OneToMany(mappedBy = "userInfo", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    @JoinColumn(name="user_Id")
     @JsonIgnoreProperties({"userInfo"})
     private List<UserAddress> userAddress= new ArrayList<>();
 

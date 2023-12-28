@@ -13,6 +13,7 @@ import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.util.Arrays;
 import java.util.List;
 
@@ -30,9 +31,32 @@ public class MenuController {
             @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorResponse.class),
             @ApiResponse(code = 200, message = "Array of Lines", response = CommonResponse.class)})
     @RequestMapping(value = "/items",produces ={"application/json"}, method = RequestMethod.GET)
-    public List<String> getMenuItems(){
-        List<String> menuList = Arrays.asList("Launch", "Dinner", "Breakfast", "Drinks", "Appetizer");
-        return menuList;
+    public CommonResponse getMenuItems(){
+//        List<String> menuList = Arrays.asList("Launch", "Dinner", "Breakfast", "Drinks", "Appetizer");
+
+        return menuService.getAllMenu();
+    }
+    @ApiOperation(
+            value = "Get all menu list", notes = "Show all menu", response = CommonResponse.class, tags = {"MenuItem",})
+    @ApiResponses(value = {
+            @ApiResponse(code = 400, message = "Bad Request. Missing required parameters", response = ErrorResponse.class),
+            @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorResponse.class),
+            @ApiResponse(code = 200, message = "Array of Lines", response = CommonResponse.class)})
+    @RequestMapping(value = "/items/id",produces ={"application/json"}, method = RequestMethod.GET)
+    public CommonResponse getMenuItemsById(@RequestParam String id){
+       // List<String> menuList = Arrays.asList("Launch", "Dinner", "Breakfast", "Drinks", "Appetizer");
+        return menuService.getMenuById(id);
+    }
+    @ApiOperation(
+            value = "Get all menu list", notes = "Show all menu", response = CommonResponse.class, tags = {"MenuItem",})
+    @ApiResponses(value = {
+            @ApiResponse(code = 400, message = "Bad Request. Missing required parameters", response = ErrorResponse.class),
+            @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorResponse.class),
+            @ApiResponse(code = 200, message = "Array of Lines", response = CommonResponse.class)})
+    @RequestMapping(value = "/items/name",produces ={"application/json"}, method = RequestMethod.GET)
+    public CommonResponse getMenuItemsByName(@PathParam("name") String name){
+        //List<String> menuList = Arrays.asList("Launch", "Dinner", "Breakfast", "Drinks", "Appetizer");
+        return menuService.getMenuByName(name);
     }
     @ApiOperation(
             value = "Get all drinks list", notes = "Show all drinks", response = CommonResponse.class, tags = {"MenuItem",})
@@ -41,8 +65,29 @@ public class MenuController {
             @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorResponse.class),
             @ApiResponse(code = 200, message = "Array of Lines", response = CommonResponse.class)})
     @RequestMapping(value = "/drinks",produces ={"application/json"}, method = RequestMethod.GET)
-    public Drinks getAllDrinks(){
-        return null;
+    public CommonResponse getAllDrinks(){
+       return menuService.getAllDrinks();
+    }
+    @ApiOperation(
+            value = "Get all drinks list", notes = "Show all drinks", response = CommonResponse.class, tags = {"MenuItem",})
+    @ApiResponses(value = {
+            @ApiResponse(code = 400, message = "Bad Request. Missing required parameters", response = ErrorResponse.class),
+            @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorResponse.class),
+            @ApiResponse(code = 200, message = "Array of Lines", response = CommonResponse.class)})
+    @RequestMapping(value = "/drinks/{id}",produces ={"application/json"}, method = RequestMethod.GET)
+    public CommonResponse getDrinksById(@PathVariable String id){
+        return menuService.getDrinksById(id);
+    }
+
+    @ApiOperation(
+            value = "Get all drinks list", notes = "Show all drinks", response = CommonResponse.class, tags = {"MenuItem",})
+    @ApiResponses(value = {
+            @ApiResponse(code = 400, message = "Bad Request. Missing required parameters", response = ErrorResponse.class),
+            @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorResponse.class),
+            @ApiResponse(code = 200, message = "Array of Lines", response = CommonResponse.class)})
+    @RequestMapping(value = "/drinks/name",produces ={"application/json"}, method = RequestMethod.GET)
+    public CommonResponse getDrinksByName(@RequestParam ("name") String name){
+        return menuService.getDrinksByName(name);
     }
     @ApiOperation(
             value = "Save menu items", notes = "Save items", response = CommonResponse.class, tags = {"MenuItem",})

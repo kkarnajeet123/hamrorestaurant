@@ -16,9 +16,9 @@ public enum HardDrinks {
         return hardDrinks;
     }
 
-    public static HardDrinks valueOfOrDefault(String myvalue){
+    public static HardDrinks valueOfOrDefault(String myValue){
         for(HardDrinks type: HardDrinks.class.getEnumConstants()){
-            if(type.toString().equalsIgnoreCase(myvalue)){
+            if(type.toString().equalsIgnoreCase(myValue)){
                 return type;
             }
         }

@@ -86,7 +86,7 @@ public class MenuController {
             @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorResponse.class),
             @ApiResponse(code = 200, message = "Array of Lines", response = CommonResponse.class)})
     @RequestMapping(value = "/drinks/name",produces ={"application/json"}, method = RequestMethod.GET)
-    public CommonResponse getDrinksByName(@RequestParam ("name") String name){
+    public CommonResponse getDrinksByName(@RequestParam String name){
         return menuService.getDrinksByName(name);
     }
     @ApiOperation(
@@ -105,7 +105,7 @@ public class MenuController {
             @ApiResponse(code = 400, message = "Bad Request. Missing required parameters", response = ErrorResponse.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorResponse.class),
             @ApiResponse(code = 200, message = "Array of Lines", response = CommonResponse.class)})
-    @RequestMapping(value = "/update/menu/{name}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/update/{name}", method = RequestMethod.PUT)
     public CommonResponse updateMenuByName(@RequestBody RequestMenuItem menuItems, @PathVariable String name){
         return menuService.updateMenuByName(menuItems, name);
     }
@@ -116,8 +116,29 @@ public class MenuController {
             @ApiResponse(code = 400, message = "Bad Request. Missing required parameters", response = ErrorResponse.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorResponse.class),
             @ApiResponse(code = 200, message = "Array of Lines", response = CommonResponse.class)})
-    @RequestMapping(value = "/update/id/{itemId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/update/{itemId}", method = RequestMethod.PUT)
     public CommonResponse updateMenuById(@RequestBody RequestMenuItem menuItems, @PathVariable String itemId){
         return menuService.updateMenuById(menuItems, itemId);
+    }
+
+    @ApiOperation(
+            value = "Update menu items", notes = "Update items", response = CommonResponse.class, tags = {"MenuItem",})
+    @ApiResponses(value = {
+            @ApiResponse(code = 400, message = "Bad Request. Missing required parameters", response = ErrorResponse.class),
+            @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorResponse.class),
+            @ApiResponse(code = 200, message = "Array of Lines", response = CommonResponse.class)})
+    @RequestMapping(value = "/delete/{itemId}", method = RequestMethod.DELETE)
+    public CommonResponse deleteMenuById(@RequestParam String itemId){
+        return menuService.deleteMenuById(itemId);
+    }
+    @ApiOperation(
+            value = "Update menu items", notes = "Update items", response = CommonResponse.class, tags = {"MenuItem",})
+    @ApiResponses(value = {
+            @ApiResponse(code = 400, message = "Bad Request. Missing required parameters", response = ErrorResponse.class),
+            @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorResponse.class),
+            @ApiResponse(code = 200, message = "Array of Lines", response = CommonResponse.class)})
+    @RequestMapping(value = "/delete/{name}", method = RequestMethod.DELETE)
+    public CommonResponse deleteMenuByName(@RequestParam String name){
+        return menuService.deleteMenuByName(name);
     }
 }

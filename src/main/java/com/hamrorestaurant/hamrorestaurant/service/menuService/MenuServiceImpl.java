@@ -28,16 +28,17 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public CommonResponse saveMenuItem(RequestMenuItem menuItem) {
         CommonResponse response = new CommonResponse();
-        MenuItemPrice items = null;
+
         if (!ObjectUtils.isEmpty(menuItem) && !StringUtils.isEmpty(menuItem.getItemName())) {
-            items = menuRepo.findByItemName(menuItem.getItemName());
+            MenuItemPrice  items = menuRepo.findByItemName(menuItem.getItemName());
             if (ObjectUtils.isEmpty(items)) {
-                items.setMenuItem(menuItem.getMenuName());
-                items.setItemName(menuItem.getItemName());
-                items.setPrice(menuItem.getPrice());
-                items.setCategory(menuItem.getCategory());
-                items.setDescription(menuItem.getItemDescription());
-                menuRepo.save(items);
+                MenuItemPrice newMenuItem = new MenuItemPrice();
+                newMenuItem.setMenuItem(menuItem.getMenuName());
+                newMenuItem.setItemName(menuItem.getItemName());
+                newMenuItem.setPrice(menuItem.getPrice());
+                newMenuItem.setCategory(menuItem.getCategory());
+                newMenuItem.setDescription(menuItem.getItemDescription());
+                menuRepo.save(newMenuItem);
 
                 response.setData("Data has been saved !!");
                 return response;
@@ -87,7 +88,7 @@ public class MenuServiceImpl implements MenuService {
         CommonResponse response = new CommonResponse();
         MenuItemPrice menuItemPrice = new MenuItemPrice();
         if (!ObjectUtils.isEmpty(menuItem) && !StringUtils.isEmpty(menuItem.getItemName()) && !StringUtils.isEmpty(id)) {
-            MenuItemPrice menu = menuRepo.findByItemName(id);
+            MenuItemPrice menu = menuRepo.findById(Long.parseLong(id)).orElse(null);
             if (!ObjectUtils.isEmpty(menu)) {
                 menuItemPrice.setId(menu.getId());
                 menuItemPrice.setItemName(menuItem.getItemName());
@@ -114,7 +115,7 @@ public class MenuServiceImpl implements MenuService {
     public CommonResponse deleteMenuById(String id) {
         CommonResponse response = new CommonResponse();
         if (!StringUtils.isEmpty(id)) {
-            MenuItemPrice menu = menuRepo.findByItemName(id);
+            MenuItemPrice menu = menuRepo.findById(Long.parseLong(id)).orElse(null);
             if (!ObjectUtils.isEmpty(menu)) {
                 menuRepo.delete(menu);
             } else {
@@ -167,7 +168,9 @@ public class MenuServiceImpl implements MenuService {
         CommonResponse response = new CommonResponse();
         try {
             List<MenuItemPrice> menuItemPrice = menuRepo.findAll();
-            Map<Long, String> drinkIdwithName = new HashMap<>();
+//            List<String> drinkListById = menuItemPrice.stream().filter(menu -> menu.getCategory().equalsIgnoreCase(Constants.Drinks)).forEach(drinksById->{
+//                menuItemPrice.stream().map(m->m.getItemName()).collect(Collectors.toList());
+//            });
             List<Long> drinkListById = menuItemPrice.stream().filter(menu -> menu.getCategory().equalsIgnoreCase(Constants.Drinks)).map(m -> m.getId()).collect(Collectors.toList());
             drinkListById.forEach(drinks -> {
                 List<String> drinkList = menuItemPrice.stream().map(m -> m.getItemName()).collect(Collectors.toList());

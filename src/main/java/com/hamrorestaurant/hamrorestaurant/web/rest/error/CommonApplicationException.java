@@ -1,6 +1,5 @@
 package com.hamrorestaurant.hamrorestaurant.web.rest.error;
 
-import com.hamrorestaurant.hamrorestaurant.util.CommonResponse;
 import lombok.Data;
 
 @Data

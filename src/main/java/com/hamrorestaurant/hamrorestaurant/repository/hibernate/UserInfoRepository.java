@@ -15,4 +15,6 @@ public interface UserInfoRepository{
     public UserInfoEntity findUserById(int userId);
 
     public List<UserInfoEntity> findByFirstName(String name);
+
+    UserInfoEntity findUserByEmailAddress(String emailAddress);
 }

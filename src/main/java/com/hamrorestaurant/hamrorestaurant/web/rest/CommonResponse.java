@@ -1,4 +1,4 @@
-package com.hamrorestaurant.hamrorestaurant.util;
+package com.hamrorestaurant.hamrorestaurant.web.rest;
 
 import lombok.Data;
 

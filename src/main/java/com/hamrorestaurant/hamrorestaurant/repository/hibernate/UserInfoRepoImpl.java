@@ -50,4 +50,9 @@ public class UserInfoRepoImpl extends AbstractAppDBRepository implements UserInf
     public List<UserInfoEntity> findByFirstName(String name) {
         return null;
     }
+
+    @Override
+    public UserInfoEntity findUserByEmailAddress(String emailAddress) {
+        return null;
+    }
 }

@@ -2,7 +2,7 @@ package com.hamrorestaurant.hamrorestaurant.controller;
 
 import com.hamrorestaurant.hamrorestaurant.entity.UserInfoEntity;
 import com.hamrorestaurant.hamrorestaurant.service.employeeService.UserInfoServiceImpl;
-import com.hamrorestaurant.hamrorestaurant.web.rest.ErrorResponse;
+import com.hamrorestaurant.hamrorestaurant.web.rest.error.ErrorResponse;
 import com.hamrorestaurant.hamrorestaurant.web.rest.UserInfoResponse;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;

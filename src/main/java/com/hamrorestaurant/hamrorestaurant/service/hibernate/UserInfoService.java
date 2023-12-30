@@ -33,4 +33,9 @@ public class UserInfoService implements UserInfoRepository{
     public List<UserInfoEntity> findByFirstName(String name) {
         return null;
     }
+
+    @Override
+    public UserInfoEntity findUserByEmailAddress(String emailAddress) {
+        return null;
+    }
 }

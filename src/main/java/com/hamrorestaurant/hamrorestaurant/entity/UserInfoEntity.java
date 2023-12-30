@@ -24,6 +24,9 @@ public class UserInfoEntity {
     private String lastName;
     private String phoneNumber;
     private String emailAddress;
+
+    private String password;
+
     @OneToMany(mappedBy = "userInfo", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @JsonIgnoreProperties({"userInfo"})
     private List<UserAddress> userAddress= new ArrayList<>();
@@ -74,5 +77,13 @@ public class UserInfoEntity {
 
     public void setUserAddress(List<UserAddress> userAddress) {
         this.userAddress = userAddress;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

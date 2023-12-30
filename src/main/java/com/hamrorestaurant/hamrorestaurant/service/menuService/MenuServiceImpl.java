@@ -1,10 +1,9 @@
 package com.hamrorestaurant.hamrorestaurant.service.menuService;
 
 import com.hamrorestaurant.hamrorestaurant.entity.MenuItemPrice;
-import com.hamrorestaurant.hamrorestaurant.model.drinks.Drinks;
 import com.hamrorestaurant.hamrorestaurant.model.menu.RequestMenuItem;
 import com.hamrorestaurant.hamrorestaurant.repository.MenuItemRepository;
-import com.hamrorestaurant.hamrorestaurant.util.CommonResponse;
+import com.hamrorestaurant.hamrorestaurant.web.rest.CommonResponse;
 import com.hamrorestaurant.hamrorestaurant.util.Constants;
 import com.hamrorestaurant.hamrorestaurant.web.rest.error.CommonApplicationException;
 import org.slf4j.Logger;
@@ -16,7 +15,6 @@ import org.springframework.util.StringUtils;
 
 import javax.xml.bind.DataBindingException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class MenuServiceImpl implements MenuService {
@@ -168,14 +166,17 @@ public class MenuServiceImpl implements MenuService {
         CommonResponse response = new CommonResponse();
         try {
             List<MenuItemPrice> menuItemPrice = menuRepo.findAll();
-//            List<String> drinkListById = menuItemPrice.stream().filter(menu -> menu.getCategory().equalsIgnoreCase(Constants.Drinks)).forEach(drinksById->{
-//                menuItemPrice.stream().map(m->m.getItemName()).collect(Collectors.toList());
-//            });
-            List<Long> drinkListById = menuItemPrice.stream().filter(menu -> menu.getCategory().equalsIgnoreCase(Constants.Drinks)).map(m -> m.getId()).collect(Collectors.toList());
-            drinkListById.forEach(drinks -> {
-                List<String> drinkList = menuItemPrice.stream().map(m -> m.getItemName()).collect(Collectors.toList());
-                response.setData(drinkList);
+
+            List<String> drinkList1= new ArrayList<>();
+            menuItemPrice.stream().filter(menu->menu.getCategory().equalsIgnoreCase(Constants.Drinks)).forEach(drink->{
+                drinkList1.add(drink.getItemName());
+                response.setData(drinkList1);
             });
+//            List<Long> drinkListById = menuItemPrice.stream().filter(menu -> menu.getCategory().equalsIgnoreCase(Constants.Drinks)).map(m -> m.getId()).collect(Collectors.toList());
+//            drinkListById.forEach(drinks -> {
+//                List<String> drinkList = menuItemPrice.stream().map(m -> m.getItemName()).collect(Collectors.toList());
+//                response.setData(drinkList);
+//            });
         } catch (DataBindingException e) {
             throw new CommonApplicationException(Constants.Err_1, Constants.ErrorDescription_1, e);
         }

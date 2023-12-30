@@ -1,4 +1,4 @@
-package com.hamrorestaurant.hamrorestaurant.web.rest;
+package com.hamrorestaurant.hamrorestaurant.web.rest.error;
 
 import java.io.Serializable;
 import java.util.List;

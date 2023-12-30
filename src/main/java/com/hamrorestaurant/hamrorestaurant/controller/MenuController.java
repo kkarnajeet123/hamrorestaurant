@@ -1,12 +1,9 @@
 package com.hamrorestaurant.hamrorestaurant.controller;
 
-import com.hamrorestaurant.hamrorestaurant.model.drinks.Drinks;
 import com.hamrorestaurant.hamrorestaurant.model.menu.RequestMenuItem;
-import com.hamrorestaurant.hamrorestaurant.service.employeeService.MenuListServiceImpl;
 import com.hamrorestaurant.hamrorestaurant.service.menuService.MenuServiceImpl;
-import com.hamrorestaurant.hamrorestaurant.util.CommonResponse;
-import com.hamrorestaurant.hamrorestaurant.web.rest.ErrorResponse;
-import com.hamrorestaurant.hamrorestaurant.web.rest.UserInfoResponse;
+import com.hamrorestaurant.hamrorestaurant.web.rest.CommonResponse;
+import com.hamrorestaurant.hamrorestaurant.web.rest.error.ErrorResponse;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -14,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
-import java.util.Arrays;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/menu/items/")

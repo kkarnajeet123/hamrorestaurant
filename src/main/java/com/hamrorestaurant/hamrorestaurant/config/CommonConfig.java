@@ -17,4 +17,5 @@ public class CommonConfig {
     public UserInfoResponse userInfoResponse(){
         return new UserInfoResponse();
     }
+
 }

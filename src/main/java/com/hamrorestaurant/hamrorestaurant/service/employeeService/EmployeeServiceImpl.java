@@ -19,24 +19,24 @@ public class EmployeeServiceImpl implements EmployeeService {
     private RestTemplate restTemplate;
 
     public static final Logger logger = LoggerFactory.getLogger(EmployeeServiceImpl.class);
-//    public EmployeeInfo getAllEmployee(){
-//        ResponseEntity<EmployeeInfo> response= null;
-//        String url="https://dummy.restapiexample.com/api/v1/employees";
-//
-//        HttpHeaders httpHeaders = new HttpHeaders();
-//        httpHeaders.set("Accept", "/");
-//        HttpEntity<Object> httpEntity = new HttpEntity(httpHeaders);
-//
-//        logger.info("Calling employee rest call ");
-//        try {
-//            response = restTemplate.exchange(url, HttpMethod.GET, httpEntity, EmployeeInfo.class);
-//            logger.info("Getting response from employee api " + response);
-//        }catch(Exception e){
-//                throw new CommonException("Error getting api response", e);
-//        }
-//        EmployeeInfo empInfo =  (response!=null) ? response.getBody():null;
-//        return empInfo;
-//    }
+    public EmployeeInfo getAllEmployee1(){
+        ResponseEntity<EmployeeInfo> response= null;
+        String url="https://dummy.restapiexample.com/api/v1/employees";
+
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.set("Accept", "/");
+        HttpEntity<Object> httpEntity = new HttpEntity(httpHeaders);
+
+        logger.info("Calling employee rest call ");
+        try {
+            response = restTemplate.exchange(url, HttpMethod.GET, httpEntity, EmployeeInfo.class);
+            logger.info("Getting response from employee api " + response);
+        }catch(Exception e){
+                throw new CommonException("Error getting api response", e);
+        }
+        EmployeeInfo empInfo =  (response!=null) ? response.getBody():null;
+        return empInfo;
+    }
 
     @Override
     public EmployeeInfo getAllEmployee() {

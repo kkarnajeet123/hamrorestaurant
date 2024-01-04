@@ -1,4 +1,4 @@
-package com.hamrorestaurant.hamrorestaurant.repository;
+package com.hamrorestaurant.hamrorestaurant.repository.hibernate;
 
 import com.hamrorestaurant.hamrorestaurant.entity.UserInfoEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,4 +15,6 @@ public interface UserInfoRepository{
     public UserInfoEntity findUserById(int userId);
 
     public List<UserInfoEntity> findByFirstName(String name);
+
+    UserInfoEntity findUserByEmailAddress(String emailAddress);
 }

@@ -1,4 +1,4 @@
-package com.hamrorestaurant.hamrorestaurant.service;
+package com.hamrorestaurant.hamrorestaurant.service.employeeService;
 
 import com.hamrorestaurant.hamrorestaurant.model.restCall.EmployeeInfo;
 

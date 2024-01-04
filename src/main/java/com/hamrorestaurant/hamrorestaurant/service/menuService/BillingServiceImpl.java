@@ -50,7 +50,7 @@ public class BillingServiceImpl implements BillingService {
     public CommonResponse getBill(int tableNumber, BillingRequest orderMenuList) {
         CommonResponse response = new CommonResponse();
         ResponseEntity<CustomerBillingResponse> responseEntity = null;
-        String url = "http://localhost:8071/customer/billing/getTotalPriceForEachItem";
+        String url = "http://BILLING-SERVICE/customer/billing/getTotalPriceForEachItem";
         logger.info("The request body for rest call is: " + orderMenuList);
         System.out.println(orderMenuList);
         HttpEntity<Object> entity = new HttpEntity<>(orderMenuList, httpHeaders());
@@ -72,7 +72,7 @@ public class BillingServiceImpl implements BillingService {
 
         CommonResponse response = new CommonResponse();
         ResponseEntity<CustomerBillingTotalCostResponse> responseEntity = null;
-        String url="http://localhost:8071/customer/billing/getBillAmount";
+        String url="http://BILLING-SERVICE/customer/billing/getBillAmount";
 
         HttpEntity<Object> entity = new HttpEntity<>(orderMenuList,httpHeaders());
 

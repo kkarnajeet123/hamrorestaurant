@@ -10,4 +10,6 @@ public interface BillingService {
 
     CommonResponse getCustomerBill(int tableNumber, List<OrderedMenu> orderMenu);
     CommonResponse getBill(int tableNumber, BillingRequest orderMenuList);
+
+    CommonResponse getTotalBill(List<BillingRequest> orderMenuList);
 }

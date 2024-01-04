@@ -49,4 +49,17 @@ public class BillingController {
         CommonResponse response = billingService.getBill(orderMenuList.getTableNumber(), orderMenuList);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @ApiOperation(
+            value = "Save menu items", notes = "Save items", response = CommonResponse.class, tags = {"Billing",})
+    @ApiResponses(value = {
+            @ApiResponse(code = 400, message = "Bad Request. Missing required parameters", response = ErrorResponse.class),
+            @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorResponse.class),
+            @ApiResponse(code = 200, message = "Array of Lines", response = CommonResponse.class)})
+    @RequestMapping(value = "/total", method = RequestMethod.POST)
+
+    public ResponseEntity<CommonResponse> getCustomerTotalBill(@RequestBody List<BillingRequest> orderMenuList) {
+        CommonResponse response = billingService.getTotalBill(orderMenuList);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 }

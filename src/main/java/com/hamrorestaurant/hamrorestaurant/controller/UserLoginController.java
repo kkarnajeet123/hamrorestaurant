@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/employee")
 public class UserLoginController {
 
     @Autowired
@@ -29,7 +29,7 @@ public class UserLoginController {
             @ApiResponse(code = 400, message = "Bad Request. Missing required parameters", response = ErrorResponse.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorResponse.class)
     })
-    @RequestMapping(value="/login", produces = {"application/json"}, method= RequestMethod.GET)
+    @RequestMapping(value="/user/login", produces = {"application/json"}, method= RequestMethod.GET)
     public CommonResponse checkValidUser(@RequestBody UserLoginRequest loginRequest) {
 
         return auth.authenticateUser(loginRequest);

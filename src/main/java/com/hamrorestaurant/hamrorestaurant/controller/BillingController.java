@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/billing")
+@RequestMapping("/api/employee")
 public class BillingController {
 
     @Autowired
@@ -31,10 +31,10 @@ public class BillingController {
             @ApiResponse(code = 400, message = "Bad Request. Missing required parameters", response = ErrorResponse.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorResponse.class),
             @ApiResponse(code = 200, message = "Array of Lines", response = CommonResponse.class)})
-    @RequestMapping(value = "/show/{tableNumber}", method = RequestMethod.POST)
+    @RequestMapping(value = "/billing/show/{tableNumber}", method = RequestMethod.POST)
 
-    public CommonResponse getCustomerBill(@RequestParam int tableNumber, @RequestBody List<OrderedMenu> orderMenuList) {
-        return billingService.getCustomerBill(tableNumber, orderMenuList);
+    public CommonResponse getCustomerBill( @RequestBody BillingRequest orderMenuList ) {
+        return billingService.getCustomerBill(orderMenuList);
     }
 
     @ApiOperation(
@@ -43,10 +43,10 @@ public class BillingController {
             @ApiResponse(code = 400, message = "Bad Request. Missing required parameters", response = ErrorResponse.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorResponse.class),
             @ApiResponse(code = 200, message = "Array of Lines", response = CommonResponse.class)})
-    @RequestMapping(value = "/bill", method = RequestMethod.POST)
+    @RequestMapping(value = "/billing/bill", method = RequestMethod.POST)
 
     public ResponseEntity<CommonResponse> getCustomerBillTest(@RequestBody BillingRequest orderMenuList) {
-        CommonResponse response = billingService.getBill(orderMenuList.getTableNumber(), orderMenuList);
+        CommonResponse response = billingService.getBill(orderMenuList);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
@@ -56,9 +56,9 @@ public class BillingController {
             @ApiResponse(code = 400, message = "Bad Request. Missing required parameters", response = ErrorResponse.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorResponse.class),
             @ApiResponse(code = 200, message = "Array of Lines", response = CommonResponse.class)})
-    @RequestMapping(value = "/total", method = RequestMethod.POST)
+    @RequestMapping(value = "/billing/total", method = RequestMethod.POST)
 
-    public ResponseEntity<CommonResponse> getCustomerTotalBill(@RequestBody List<BillingRequest> orderMenuList) {
+    public ResponseEntity<CommonResponse> getCustomerTotalBill(@RequestBody BillingRequest orderMenuList) {
         CommonResponse response = billingService.getTotalBill(orderMenuList);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

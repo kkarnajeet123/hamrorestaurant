@@ -10,12 +10,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class BillingServiceImpl implements BillingService {
@@ -26,19 +29,16 @@ public class BillingServiceImpl implements BillingService {
     private RestTemplate restTemplate;
 
     @Override
-    public CommonResponse getCustomerBill(int tableNumber, List<OrderedMenu> orderMenu) {
+    public CommonResponse getCustomerBill(BillingRequest orderMenuList) {
         CommonResponse response = new CommonResponse();
         ResponseEntity<CommonResponse> responseEntity = null;
 //CustomerBillingResponse
-        String url = "http://localhost:8071/customer/billing/getTotalPriceForEachItem";
-
-        BillingRequest request = new BillingRequest();
-        request.setTableNumber(tableNumber);
-        request.setMenu(orderMenu);
-
-        HttpEntity<Object> entity = new HttpEntity<>(request, httpHeaders());
+        Map<String, Integer> queryBuilder = new HashMap<>();
+        int tableNumber = orderMenuList.getTableNumber();
+        String url = "http://BILLING-SERVICE/api/customer/billing/getTotalPriceForEachItem?tableNumber={tableNumber}";
+        HttpEntity<Object> entity = new HttpEntity<>(orderMenuList, httpHeaders());
         try {
-            responseEntity = restTemplate.exchange(url, HttpMethod.POST, entity, CommonResponse.class);
+            responseEntity = restTemplate.exchange(url, HttpMethod.POST, entity, CommonResponse.class, queryBuilder);
         } catch (HttpServerErrorException e) {
             throw new RuntimeException("Unable to call endpoint" + e);
         }
@@ -47,16 +47,19 @@ public class BillingServiceImpl implements BillingService {
     }
 
     @Override
-    public CommonResponse getBill(int tableNumber, BillingRequest orderMenuList) {
+    public CommonResponse getBill(BillingRequest orderMenuList) {
         CommonResponse response = new CommonResponse();
         ResponseEntity<CustomerBillingResponse> responseEntity = null;
-        String url = "http://BILLING-SERVICE/customer/billing/getTotalPriceForEachItem";
+        Map<String, Integer> queryBuilder = new HashMap<>();
+        int tableNumber = orderMenuList.getTableNumber();
+        queryBuilder.put("tableNumber", tableNumber);
+        String url = "http://BILLING-SERVICE/api/customer/billing/getTotalPriceForEachItem?tableNumber={tableNumber}";
+        logger.info("The url is: " + url);
         logger.info("The request body for rest call is: " + orderMenuList);
-        System.out.println(orderMenuList);
         HttpEntity<Object> entity = new HttpEntity<>(orderMenuList, httpHeaders());
         try {
-            responseEntity = restTemplate.exchange(url, HttpMethod.POST, entity, CustomerBillingResponse.class);
-        }catch (HttpServerErrorException e){
+            responseEntity = restTemplate.exchange(url, HttpMethod.POST, entity, CustomerBillingResponse.class, queryBuilder);
+        } catch (HttpServerErrorException e) {
             throw new HttpServerErrorException(HttpStatus.BAD_REQUEST, "Failing to get billing information!!");
         }
         String responseJson = JSONArray.toJSONString(Arrays.asList(responseEntity));
@@ -67,18 +70,25 @@ public class BillingServiceImpl implements BillingService {
 
         return response;
     }
-@Override
-    public CommonResponse getTotalBill(List<BillingRequest> orderMenuList){
+
+    @Override
+    public CommonResponse getTotalBill(BillingRequest orderMenuList) {
 
         CommonResponse response = new CommonResponse();
         ResponseEntity<CustomerBillingTotalCostResponse> responseEntity = null;
-        String url="http://BILLING-SERVICE/customer/billing/getBillAmount";
+        Map<String, Integer> queryBuilder = new HashMap<>();
+        int tableNumber = orderMenuList.getTableNumber();
+        queryBuilder.put("tableNumber", tableNumber);
+        String url = "http://BILLING-SERVICE/api/customer/billing/getTotalBillAmount?tableNumber={tableNumber}";
 
-        HttpEntity<Object> entity = new HttpEntity<>(orderMenuList,httpHeaders());
+        List<OrderedMenu> orderList = orderMenuList.getMenu();
+        logger.info("The request body is: "+orderList.toString());
+        HttpEntity<Object> entity = new HttpEntity<>(orderMenuList, httpHeaders());
 
-        try{
-            responseEntity= restTemplate.exchange(url, HttpMethod.POST, entity, CustomerBillingTotalCostResponse.class);
-        }catch (HttpServerErrorException e){
+        try {
+            responseEntity = restTemplate.exchange(url, HttpMethod.POST, entity, CustomerBillingTotalCostResponse.class, queryBuilder);
+            logger.info("Received response from Biller: "+responseEntity.getBody().toString());
+        } catch (HttpServerErrorException e) {
             throw new HttpServerErrorException(HttpStatus.BAD_REQUEST, "Failing to get billing information for total price");
         }
 
@@ -95,9 +105,9 @@ public class BillingServiceImpl implements BillingService {
         return headers;
     }
 
-    private String practiceTernaryOperator(){
-        boolean flag=false;
-        return flag==true?"true":"false";
+    private String practiceTernaryOperator() {
+        boolean flag = false;
+        return flag == true ? "true" : "false";
 
     }
 }

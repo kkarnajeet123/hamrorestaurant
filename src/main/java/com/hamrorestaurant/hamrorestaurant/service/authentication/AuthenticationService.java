@@ -16,11 +16,11 @@ public class AuthenticationService {
     public CommonResponse authenticateUser(UserLoginRequest userLoginRequest) {
         CommonResponse response = new CommonResponse();
         if (!ObjectUtils.isEmpty(userLoginRequest)) {
-            //finding user by their email address
-            UserInfoEntity user = repo.findUserByEmailAddress(userLoginRequest.getEmailAddress());
-            if (!ObjectUtils.isEmpty(user)) {
-                if (user.getPassword().equalsIgnoreCase(userLoginRequest.getPassword())) {
-                    response.setData(user);
+            //finding userByEmailAddress by their email address
+            UserInfoEntity userByEmailAddress = repo.findUserByEmailAddress(userLoginRequest.getEmailAddress());
+            if (!ObjectUtils.isEmpty(userByEmailAddress)) {
+                if (userByEmailAddress.getPassword().equalsIgnoreCase(userLoginRequest.getPassword())) {
+                    response.setData(userByEmailAddress);
                 } else {
                     response.setData("Invalid password, please try with correct password!!");
                 }

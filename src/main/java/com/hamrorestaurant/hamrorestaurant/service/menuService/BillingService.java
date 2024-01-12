@@ -8,8 +8,8 @@ import java.util.List;
 
 public interface BillingService {
 
-    CommonResponse getCustomerBill(int tableNumber, List<OrderedMenu> orderMenu);
-    CommonResponse getBill(int tableNumber, BillingRequest orderMenuList);
+    CommonResponse getCustomerBill(BillingRequest orderMenuList);
+    CommonResponse getBill(BillingRequest orderMenuList);
 
-    CommonResponse getTotalBill(List<BillingRequest> orderMenuList);
+    CommonResponse getTotalBill(BillingRequest orderMenuList);
 }

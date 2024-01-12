@@ -15,7 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/user/hibernate")
+@RequestMapping("/api/employee")
 public class UserInformationController {
     private static final Logger logger = LoggerFactory.getLogger(UserInformationController.class);
     @Autowired
@@ -27,7 +27,7 @@ public class UserInformationController {
             @ApiResponse(code = 400, message = "Bad Request. Missing required parameters", response = ErrorResponse.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorResponse.class)
     })
-    @RequestMapping(value="/users", produces = {"application/json"}, method= RequestMethod.GET)
+    @RequestMapping(value="/user/hibernate/users", produces = {"application/json"}, method= RequestMethod.GET)
     public ResponseEntity<?> getUserList() {
 
         UserInfoResponse response= userService.getAllUserInfo();
@@ -40,7 +40,7 @@ public class UserInformationController {
             @ApiResponse(code = 400, message = "Bad Request. Missing required parameters", response = ErrorResponse.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorResponse.class),
             @ApiResponse(code = 200, message = "Array of Lines", response = UserInfoResponse.class)})
-    @RequestMapping(value = "/findUser/{userId}", produces = {"application/json"}, method = RequestMethod.GET)
+    @RequestMapping(value = "/user/hibernate/findUser/{userId}", produces = {"application/json"}, method = RequestMethod.GET)
     // @GetMapping("/findUser/{userId}")
     public ResponseEntity<UserInfoResponse> getUserInfoById(@RequestParam String userId) {
         UserInfoResponse response= userService.getUserById(userId);
@@ -53,7 +53,7 @@ public class UserInformationController {
             @ApiResponse(code = 400, message = "Bad Request. Missing required parameters", response = ErrorResponse.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorResponse.class),
             @ApiResponse(code = 200, message = "Array of Lines", response = UserInfoResponse.class)})
-    @RequestMapping(value = "/addUser", method = RequestMethod.POST)
+    @RequestMapping(value = "/user/hibernate/addUser", method = RequestMethod.POST)
     public ResponseEntity<UserInfoResponse> addUser(@RequestBody UserInfoEntity userInfo) {
         UserInfoResponse response= userService.addUserInfo(userInfo);
         return new ResponseEntity<>(response, HttpStatus.OK);
@@ -65,7 +65,7 @@ public class UserInformationController {
             @ApiResponse(code = 400, message = "Bad Request. Missing required parameters", response = ErrorResponse.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorResponse.class),
             @ApiResponse(code = 200, message = "Array of Lines", response = UserInfoResponse.class)})
-    @RequestMapping(value = "/updateUser/{userId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/user/hibernate/updateUser/{userId}", method = RequestMethod.PUT)
     // @PostMapping("/updateUser/{userId}")
     public ResponseEntity<UserInfoResponse> updateUserByUserId(@RequestParam String userId, @RequestBody UserInfoEntity userInfo) {
         UserInfoResponse response= userService.updateUserById(userId, userInfo);
@@ -78,7 +78,7 @@ public class UserInformationController {
             @ApiResponse(code = 400, message = "Bad Request. Missing required parameters", response = ErrorResponse.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorResponse.class),
             @ApiResponse(code = 200, message = "Array of Lines", response = UserInfoResponse.class)})
-    @RequestMapping(value = "/updateUser/{emailAddress}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/user/hibernate/updateUser/{emailAddress}", method = RequestMethod.PUT)
     public ResponseEntity<UserInfoResponse> updateUserByEmailAddress(@RequestParam String emailAddress, @RequestBody UserInfoEntity userInfo) {
         UserInfoResponse response= userService.updateUserByEmailAddress(emailAddress, userInfo);
         return new ResponseEntity<>(response, HttpStatus.OK);
@@ -90,7 +90,7 @@ public class UserInformationController {
             @ApiResponse(code = 400, message = "Bad Request. Missing required parameters", response = ErrorResponse.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorResponse.class),
             @ApiResponse(code = 200, message = "Array of Lines", response = UserInfoResponse.class)})
-    @RequestMapping(value = "/updateUser/{emailAddress}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/user/hibernate/updateUser/{emailAddress}", method = RequestMethod.DELETE)
     public ResponseEntity<UserInfoResponse> deleteUserByEmailAddress(@RequestParam String emailAddress) {
         UserInfoResponse response = userService.deleteUserByEmailAddress(emailAddress);
         return new ResponseEntity<>(response, HttpStatus.OK);
@@ -102,7 +102,7 @@ public class UserInformationController {
             @ApiResponse(code = 400, message = "Bad Request. Missing required parameters", response = ErrorResponse.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorResponse.class),
             @ApiResponse(code = 200, message = "Array of Lines", response = UserInfoResponse.class)})
-    @RequestMapping(value = "/updateUser/{userId}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/user/hibernate/updateUser/{userId}", method = RequestMethod.DELETE)
     public ResponseEntity<UserInfoResponse> deleteUserByUserId(@RequestParam String userId) {
         UserInfoResponse response = userService.deleteUserById(userId);
         return new ResponseEntity<>(response, HttpStatus.OK);
